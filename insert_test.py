@@ -1,6 +1,5 @@
 import logging
 from pyspark.sql import SparkSession
-import dbutils
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
