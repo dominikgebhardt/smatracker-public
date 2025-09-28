@@ -19,5 +19,7 @@ try:
     VALUES ('Harry Hohl')
     """)
     logging.info("Row inserted successfully into smatracker_prod.bronze.test")
+    test_secret = dbutils.secrets.get(scope="smatracker-prod", key="mysecret-testing")
+    logging.info(f"Retrieved test secret: {test_secret}")
 except Exception as e:
     logging.error(f"Failed to insert row: {e}")
