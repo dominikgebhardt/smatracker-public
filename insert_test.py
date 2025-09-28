@@ -1,5 +1,6 @@
 import logging
 from pyspark.sql import SparkSession
+import dbutils
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -12,6 +13,9 @@ logging.error("This is an error message")
 # Create Spark session
 spark = SparkSession.builder.getOrCreate()
 
+# DBFS tmp path for the clone
+DBFS_TMP_PATH = "dbfs:/tmp/my_repo"
+
 # Insert one row into your test table
 try:
     spark.sql("""
@@ -19,8 +23,8 @@ try:
     VALUES ('Harry Hohl')
     """)
     logging.info("Row inserted successfully into smatracker_prod.bronze.test")
-    test_secret = dbutils.secrets.get(scope="smatracker-prod", key="mysecret-testing")
-    is_equal = test_secret == "abcdefg"
-    logging.info(f"Retrieved test secret: {str(is_equal)}")
+    logging.info("Try to clone git repo")
+    dbutils.fs.mkdirs(DBFS_TMP_PATH)  # ensures parent exists
+    
 except Exception as e:
     logging.error(f"Failed to insert row: {e}")
