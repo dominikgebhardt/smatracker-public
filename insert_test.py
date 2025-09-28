@@ -20,7 +20,7 @@ try:
     """)
     logging.info("Row inserted successfully into smatracker_prod.bronze.test")
     test_secret = dbutils.secrets.get(scope="smatracker-prod", key="mysecret-testing")
-    is_equal = test_secret == "abdefg"
+    is_equal = test_secret == "abcdefg"
     logging.info(f"Retrieved test secret: {str(is_equal)}")
 except Exception as e:
     logging.error(f"Failed to insert row: {e}")
